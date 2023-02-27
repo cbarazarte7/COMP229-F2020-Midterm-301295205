@@ -29,6 +29,7 @@ router.get('/add', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    // Render form to add a new book
     res.render('books/details',{title:'Add Book', books: {}})
 
 });
@@ -46,6 +47,7 @@ router.post('/add', (req, res, next) => {
       "Author": req.body.author,
       "Genre": req.body.genre
   });
+  // Save to database the new document
   book.create(newBook, (err, book) => {
       if (err) {
           console.log(err);
@@ -63,7 +65,7 @@ router.get('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-
+    // Find book by id and show to user
     let id = req.params.id;
     book.findById(id, (err, bookToEdit) => {
         if (err) {
@@ -93,6 +95,7 @@ router.post('/:id', (req, res, next) => {
         "Author": req.body.author,
         "Genre": req.body.genre
     });
+    // Update document with data sent by user
     book.updateOne({ _id: id }, updatedBook, (err) => {
         if (err) {
             console.log(err);
@@ -111,7 +114,7 @@ router.get('/delete/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-
+    // Remove document from database
     let id = req.params.id;
     book.remove({ _id: id }, (err) => {
         if (err) {
