@@ -47,6 +47,18 @@ router.get('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+
+    let id = req.params.id;
+    book.findById(id, (err, bookToEdit) => {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            res.render('books/details', { title: 'Edit Book', books: bookToEdit,displayName:req.user?req.user.displayName:'' });
+        }
+    });
+
 });
 
 // POST - process the information passed from the details form and update the document
@@ -55,6 +67,25 @@ router.post('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+
+    let id = req.params.id
+    let updatedBook = book({
+        "_id": id,
+        "Title": req.body.title,
+        "Description": req.body.description,
+        "Price": req.body.price,
+        "Author": req.body.author,
+        "Genre": req.body.genre
+    });
+    book.updateOne({ _id: id }, updatedBook, (err) => {
+        if (err) {
+            console.log(err);
+            res.end(err);
+        }
+        else {
+            res.redirect('/books');
+        }
+    });
 
 });
 
