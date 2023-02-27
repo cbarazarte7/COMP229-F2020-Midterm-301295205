@@ -1,3 +1,9 @@
+/* 
+    books.js
+    Name: Carla Barazarte 
+    StudentID: 301295205
+    WebAppName: Books 
+*/
 let mongoose = require('mongoose');
 
 // create a model class
